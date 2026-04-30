@@ -257,3 +257,52 @@ REPORT = {
     "indent":           2,                  # отступ JSON
     "html_template":    BASE_DIR / "templates" / "report.html",
 }
+
+# === MINIMAL FIX: flat exports for backward compatibility ===
+# Prefetch
+PREFETCH_DIR = WINDOWS_ARTIFACTS["prefetch"]["dir"]
+PREFETCH_PATTERN = WINDOWS_ARTIFACTS["prefetch"]["pattern"]
+PREFETCH_DESCRIPTION = WINDOWS_ARTIFACTS["prefetch"]["description"]
+
+# Shimcache
+SHIMCACHE_DIR = WINDOWS_ARTIFACTS["shimcache"]["dir"]
+SHIMCACHE_FILE = WINDOWS_ARTIFACTS["shimcache"]["file"]
+SHIMCACHE_DESCRIPTION = WINDOWS_ARTIFACTS["shimcache"]["description"]
+
+# Amcache
+AMCACHE_DIR = WINDOWS_ARTIFACTS["amcache"]["dir"]
+AMCACHE_FILE = WINDOWS_ARTIFACTS["amcache"]["file"]
+AMCACHE_DESCRIPTION = WINDOWS_ARTIFACTS["amcache"]["description"]
+
+# Event Logs
+EVENT_LOG_DIR = WINDOWS_ARTIFACTS["event_logs"]["dir"]
+EVENT_LOG_PATTERN = WINDOWS_ARTIFACTS["event_logs"]["pattern"]
+EVENT_IDS = WINDOWS_ARTIFACTS["event_logs"]["event_ids"]  # type: ignore
+
+# User activity
+USERACTIVITY_DIR = WINDOWS_ARTIFACTS["useractivity"]["dir"]
+USERACTIVITY_FILE = WINDOWS_ARTIFACTS["useractivity"]["file"]
+USERACTIVITY_DESCRIPTION = WINDOWS_ARTIFACTS["useractivity"]["description"]
+
+# Recent files
+RECENT_DIR = WINDOWS_ARTIFACTS["recent"]["dir"]
+RECENT_PATTERN = WINDOWS_ARTIFACTS["recent"]["pattern"]
+RECENT_DESCRIPTION = WINDOWS_ARTIFACTS["recent"]["description"]
+
+# Analysis settings
+ANALYSIS_OUTPUT_DIR = ANALYSIS["output_dir"]
+ANALYSIS_REPORT_FORMAT = ANALYSIS["report_format"]
+ANALYSIS_INCLUDE_RAW = ANALYSIS["include_raw"]
+
+# Logging
+LOG_LEVEL = LOGGING["level"]
+LOG_FILE = LOGGING["file"]
+LOG_FORMAT = LOGGING["format"]
+LOG_DATE_FORMAT = LOGGING["date_format"]
+LOG_USE_RICH = LOGGING["use_rich"]
+
+# Report
+REPORT_INCLUDE_SUMMARY = REPORT["include_summary"]
+REPORT_INCLUDE_DETAILS = REPORT["include_details"]
+REPORT_OUTPUT_FORMAT = REPORT["output_format"]
+# === END MINIMAL FIX ===
