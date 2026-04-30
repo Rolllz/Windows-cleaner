@@ -5,6 +5,8 @@ import logging
 import importlib
 import traceback
 from pathlib import Path
+from typing import Optional
+from utils.logger import setup_logging
 
 if sys.version_info < (3, 10):
     sys.exit("[✗] Требуется Python 3.10 или выше.")
@@ -128,23 +130,10 @@ def validate_drive(drive: Path) -> None:
         )
 
 
-def setup_logging(verbose: bool, log_file: Optional[Path] = None) -> None:
-    level = logging.DEBUG if verbose else logging.INFO
-    handlers = [logging.StreamHandler(sys.stderr)]
-    if log_file:
-        log_file.parent.mkdir(parents=True, exist_ok=True)
-        handlers.append(logging.FileHandler(log_file, encoding="utf-8"))
-    logging.basicConfig(
-        level=level,
-        format="%(asctime)s [%(levelname)s] %(name)s — %(message)s",
-        handlers=handlers,
-    )
-
-
 def load_module(module_id: str):
     """Динамически загружает модуль из src/modules/<id>.py."""
     try:
-        mod = importlib.import_module(f"src.modules.{module_id}")
+        mod = importlib.import_module(f".modules.{module_id}", package="src")
         return mod
     except ModuleNotFoundError:
         return None
@@ -234,7 +223,11 @@ def save_report(path: Path, results: dict, drive: Path, dry_run: bool) -> None:
 def main() -> None:
     args = parse_args()
     validate_drive(args.drive)
-    setup_logging(args.verbose, args.log)
+    setup_logging(
+        log_level="DEBUG" if args.verbose else LOG_LEVEL,
+        log_file=LOG_FILE if args.log is None else args.log,
+        use_rich=LOG_USE_RICH
+    )
 
     # ── Шапка ─────────────────────────────────────────────────
     console.print()
@@ -332,5 +325,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    from typing import Optional
     main()
